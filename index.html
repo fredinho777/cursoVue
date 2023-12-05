@@ -9,10 +9,27 @@
 </head>
 <body class="h-full grid place-items-center">
     <div id="app">
-        <section>
-            <h2 class="font-bold mb-2">Assigments</h2>
+        <section v-show="inProgressAssigments.length">
+            <h2 class="font-bold mb-2">Assigments in progress</h2>
             <ul>
-                <li v-for="assigment in assigments">
+                <li 
+                    v-for="assigment in inProgressAssigments" 
+                    :key="assigment.id"
+                >
+                    <label>
+                        {{ assigment.name }}
+                        <input type="checkbox" v-model="assigment.complete">
+                    </label>
+                </li>
+            </ul>
+        </section>
+        <section v-show="completedAssigments.length" class="mt-8">
+            <h2 class="font-bold mb-2">Completed assigments</h2>
+            <ul>
+                <li 
+                    v-for="assigment in completedAssigments"
+                    :key="assigment.id"
+                >
                     <label>
                         {{ assigment.name }}
                         <input type="checkbox" v-model="assigment.complete">
@@ -26,10 +43,18 @@
             data(){
                 return{
                     assigments: [
-                        { name: 'Finish project', complete: false},
-                        { name: 'Read chapter 4', complete: false},
-                        { name: 'Turn in homework', complete: false},
+                        { name: 'Finish project', complete: false, id: 1 },
+                        { name: 'Read chapter 4', complete: false, id: 2 },
+                        { name: 'Turn in homework', complete: false, id: 3 },
                     ]
+                }
+            },
+            computed: {
+                inProgressAssigments() {
+                    return this.assigments.filter(assigments => ! assigments.complete);
+                },
+                completedAssigments() {
+                    return this.assigments.filter(assigments => assigments.complete);
                 }
             }
         }
