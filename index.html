@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <style>
-        .text-red {
-            color: red;
-        }
-
-        .text-green {
-            color: green;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="h-full grid place-items-center">
     <div id="app">
-        <button :class="active ? 'text-red' : 'text-green'" @click="toggle">Click me!</button>
+        <section>
+            <h2 class="font-bold mb-2">Assigments</h2>
+            <ul>
+                <li v-for="assigment in assigments">
+                    <label>
+                        {{ assigment.name }}
+                        <input type="checkbox" v-model="assigment.complete">
+                    </label>
+                </li>
+            </ul>
+        </section>
     </div>
     <script>
-        Vue.createApp({
+        let app = {
             data(){
-                return {
-                    active: false
-                };
-            },
-
-            methods: {
-                toggle(){
-                    this.active = !this.active;
+                return{
+                    assigments: [
+                        { name: 'Finish project', complete: false},
+                        { name: 'Read chapter 4', complete: false},
+                        { name: 'Turn in homework', complete: false},
+                    ]
                 }
             }
-
-        }).mount('#app');
+        }
+        Vue.createApp(app).mount('#app');
     </script>
 </body>
 </html>
