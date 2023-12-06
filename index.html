@@ -9,27 +9,18 @@
 </head>
 <body class="h-full grid place-items-center">
     <div id="app">
-        <app-button>Submit</app-button>       
-        <app-button>Click Me!</app-button>       
+        <app-button>Submit</app-button>         
         
     </div>
-    <script>
+    <script type="module">
+        import AppButton from "./js/components/AppButton.js";
+
         let app = {
             components: {
-                'app-button': {
-                    template:`
-                        <button class="bg-gray-200 hover:gray-400 border rounded px-4 py-2 disabled:cursor-not-allowed" :disabled="processing">
-                            <slot/>
-                        </button>
-                    `,
-                    data() {
-                        return {
-                            processing: false
-                        };
-                    }
-                },
+                'app-button': AppButton
             }
         };
+
         Vue.createApp(app).mount('#app');
     </script>
 </body>
